@@ -72,14 +72,21 @@ command :info do |c|
   c.syntax = "jenkins info <job_name>"
   c.description = "Display job's description"
   c.action do |args, options|
-    data = Hashr.new(J.job.list_details(args[0])) unless args.empty?
+    data = nil
+    begin
+      data = Hashr.new(J.job.list_details(args[0])) unless args.empty?
+    rescue JenkinsApi::Exceptions::NotFound => e
+      puts "Oops...Check job name..."
+      exit
+    end
+    
     if data
       puts "\nJob: #{data.displayName}"
       puts "Description: #{data.description}"
       puts "Last build: ##{data.lastBuild.number}"
       puts ""
       params_data = data.property.delete_if {|x| !x[:parameterDefinitions]}.first
-      params_data = params_data[:parameterDefinitions] if params_data.key? :parameterDefinitions
+      params_data = params_data[:parameterDefinitions] if params_data && params_data.key?(:parameterDefinitions)
       params = []
       if params_data
         puts "Parameters:"
@@ -112,7 +119,14 @@ command :build do |c|
   c.syntax = "jenkins build <job_name> [params]"
   c.description = "Build job with parameters"
   c.action do |args, options|
-    puts args
-    puts options
+    job_name = args.shift
+    puts "Building job #{job_name}"
+    params = {}
+    args.each do |a|
+      name, value = a.split('=', 2)
+      params[name] = value
+    end
+    
+    puts J.job.build(job_name, params)
   end
 end
