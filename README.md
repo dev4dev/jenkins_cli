@@ -6,11 +6,13 @@
 	cd jenkins_cli
 	gem install bundler
 	bundle install
+	cp jenkins.yml ~/.jenkins.yml
+	nano ~/.jenkins.yml
 	ln -s ./jenkins.rb /usr/loca/bin/jenkins
 
 ## Usage
 
-### Listing and searcing jobs
+### Listing and searching jobs
 `jenkins list [filter]` - will list all jobs and apply filter if provided
 
 ### Job info
