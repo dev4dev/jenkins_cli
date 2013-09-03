@@ -1,5 +1,9 @@
 # Jenkins CLI
 
+## Requirements
+
+Ruby v1.9.3+ - [rvm.io](http://rvm.io)
+
 ## Install
 
 	git clone https://github.com/dev4dev/jenkins_cli jenkins_cli
