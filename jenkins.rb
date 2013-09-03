@@ -58,7 +58,7 @@ end
 ## Body
 
 command :list do |c|
-  c.syntax = "jenkins list [filter]"
+  c.syntax = "#{program(:name)} list [filter]"
   c.description = "List all jobs"
   c.action do |args, options|
     filter = ".*"
@@ -69,7 +69,7 @@ command :list do |c|
 end
 
 command :info do |c|
-  c.syntax = "jenkins info <job_name>"
+  c.syntax = "#{program(:name)} info <job_name>"
   c.description = "Display job's description"
   c.action do |args, options|
     data = nil
@@ -104,7 +104,7 @@ command :info do |c|
         end
       end
       
-      print %Q{Build: jenkins build "#{data.name}" }
+      print %Q{Build: #{program(:name)} build "#{data.name}" }
       params.each do |param|
         defaultValue = "param value"
         defaultValue = param[:defaultValue] unless param[:defaultValue].empty?
@@ -116,7 +116,7 @@ command :info do |c|
 end
 
 command :build do |c|
-  c.syntax = "jenkins build <job_name> [params]"
+  c.syntax = "#{program(:name)} build <job_name> [params]"
   c.description = "Build job with parameters"
   c.action do |args, options|
     job_name = args.shift
