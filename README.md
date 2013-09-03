@@ -1,5 +1,13 @@
 # Jenkins CLI
 
+## Install
+
+	git clone https://github.com/dev4dev/jenkins_cli jenkins_cli
+	cd jenkins_cli
+	gem install bundler
+	bundle install
+	ln -s ./jenkins.rb /usr/loca/bin/jenkins
+
 ## Usage
 
 ### Listing and searcing jobs
