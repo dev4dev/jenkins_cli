@@ -93,7 +93,7 @@ command :info do |c|
         params_data.each do |p|
           info = parameter_info p
           params << info
-          puts "* #{info[:name]} #{info[:defaultValuePrint]} - #{info[:description]} #{info[:typePrint]}"
+          puts "* %{name} %{defaultValuePrint} - %{description} %{typePrint}" % info
           unless info[:choices].empty?
             puts "Choices:"
             info[:choices].each do |c|
