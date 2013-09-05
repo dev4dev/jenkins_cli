@@ -12,7 +12,7 @@ Ruby v1.9.3+ - [rvm.io](http://rvm.io)
 	bundle install
 	cp jenkins.yml ~/.jenkins.yml
 	nano ~/.jenkins.yml
-	ln -s ./jenkins.rb /usr/local/bin/jenkins
+	ln -s `pwd`/jenkins.rb /usr/local/bin/jenkins
 
 ## Usage
 
