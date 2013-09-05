@@ -116,7 +116,7 @@ command :info do |c|
 end
 
 command :build do |c|
-  c.syntax = "#{program(:name)} build <job_name> [params]"
+  c.syntax = "#{program(:name)} build <job_name> [param_name=param_value]"
   c.description = "Build job with parameters"
   c.action do |args, options|
     job_name = args.shift
