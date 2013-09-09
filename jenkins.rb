@@ -120,13 +120,19 @@ command :build do |c|
   c.description = "Build job with parameters"
   c.action do |args, options|
     job_name = args.shift
-    puts "Building job #{job_name}"
     params = {}
     args.each do |a|
       name, value = a.split('=', 2)
       params[name] = value
     end
     
-    puts J.job.build(job_name, params)
+    puts "Building job #{job_name} with params #{params}"
+    
+    result = J.job.build(job_name, params)
+    if result.to_i == 302
+      puts "Job has been added to queue successfully!"
+    else
+      puts "Something went wrong..."
+    end
   end
 end
