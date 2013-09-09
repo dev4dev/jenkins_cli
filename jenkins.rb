@@ -6,6 +6,8 @@ require "yaml"
 require "hashr"
 require "commander/import"
 
+SUCCESS_RESPONSE_CODE = 320
+
 ## Setup
 config_file = File.expand_path('~/.jenkins.yml')
 config = Hashr.new(YAML.load_file(config_file)) if File.exists? config_file
@@ -129,7 +131,7 @@ command :build do |c|
     puts "Building job #{job_name} with params #{params}"
     
     result = J.job.build(job_name, params)
-    if result.to_i == 302
+    if result.to_i == SUCCESS_RESPONSE_CODE
       puts "Job has been added to queue successfully!"
     else
       puts "Something went wrong..."
