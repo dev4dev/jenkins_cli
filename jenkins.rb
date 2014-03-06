@@ -7,6 +7,7 @@ require "hashr"
 require "commander/import"
 
 SUCCESS_RESPONSE_CODE = 320
+VERSION = '1.0.0'
 
 ## Setup
 config_file = File.expand_path('~/.jenkins.yml')
@@ -14,15 +15,21 @@ config = Hashr.new(YAML.load_file(config_file)) if File.exists? config_file
 
 ## Comander
 program :name, 'jenkins'
-program :version, '1.0.0'
+program :version, VERSION
 program :description, 'JenkinsCI CLI'
 
 ## Jenkins
 params = {
-  :server_ip => config.server.ip,
-  :server_port => config.server.port,
   :log_level => Logger::ERROR
 }
+
+if config.server.url
+  params[:server_url] = config.server.url
+else
+  params[:server_ip] = config.server.ip
+  params[:server_port] = config.server.port
+end
+
 if config.user
   params[:username] = config.user.username
   params[:password] = config.user.password
